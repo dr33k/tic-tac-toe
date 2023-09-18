@@ -1,16 +1,17 @@
-<p>Player : {{player}}</p>
-
-<button mat-stroked-button color="accent" (click)="newGame()">Start Over</button>
-
-<div *ngIf="winner">
-    Player {{winner}} wins;
-</div>
-
 <main>
-    <app-square 
-    *ngFor="let square of squares; let i = index" 
-    [value]=square 
-    (click)="makeMove(i)">
+    <span class="block" *ngIf="!winner">Next: {{player}}</span>
+    <div class="block" *ngIf="winner">Player {{winner}} wins</div>
 
-    </app-square>
+    <div class="block">
+        <button id="start-over" mat-flat-button color="accent" (click)="newGame()">Start Over</button>
+    </div>
+
+    <div class="block">
+        <div class="grid">
+            <app-square *ngFor="let square of squares; let i = index" [disabled]=disabled [value]=square
+                (click)="makeMove(i)">
+
+            </app-square>
+        </div>
+    </div>
 </main>

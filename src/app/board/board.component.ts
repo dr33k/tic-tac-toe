@@ -8,6 +8,7 @@ import { Component, OnInit } from '@angular/core';
 export class BoardComponent implements OnInit{
 squares: any[]= [];
 xIsNext: boolean = true;
+disabled:boolean = false;
 winner?: string;
 plays: number = 0;
 lines: number[][] = [
@@ -31,6 +32,7 @@ ngOnInit(): void {
 newGame():void{
   this.squares= Array(9).fill(null);
   this.xIsNext = true;
+  this.disabled = false;
   this.winner = undefined;
 }
 
@@ -39,12 +41,14 @@ get player(): 'X' | 'O'{
 }
 
 makeMove(index: number){
-  if(!this.squares[index]){
-    this.squares.splice(index, 1, this.player);
-    this.xIsNext = !this.xIsNext;
-    this.plays++;
-  }
-  if(this.plays >= 5)this.calculateWinner();
+  if(!this.disabled){
+    if(!this.squares[index]){
+      this.squares.splice(index, 1, this.player);
+      this.xIsNext = !this.xIsNext;
+      this.plays++;
+    }
+    if(this.plays >= 5)this.calculateWinner();
+}
 }
 
 calculateWinner(): void{
@@ -54,6 +58,7 @@ calculateWinner(): void{
     this.squares[a] === this.squares[b] &&
     this.squares[a] === this.squares[c]){
       this.winner = this.squares[a];
+      this.disabled = true;
     }
  }
 }
