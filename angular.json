@@ -30,7 +30,6 @@
               "src/assets"
             ],
             "styles": [
-              "src/assets/css/stylesheet.min.css",
               "src/styles.scss"
             ],
             "scripts": []
